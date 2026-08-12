@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MuJoCo Hello Gripper is an end-to-end research platform for robot demonstration collection, visuomotor policy learning, asynchronous action-horizon control, and deterministic evaluation.">
+  <meta name="theme-color" content="#0c1110">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hello Gripper — Visuomotor imitation learning at 100 Hz">
+  <meta property="og:description" content="From varied robot demonstrations to asynchronous action-horizon control in MuJoCo.">
+  <meta property="og:url" content="https://waterloo-visuomotor.github.io/">
+  <meta property="og:image" content="https://waterloo-visuomotor.github.io/assets/posters/model-rollout.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Hello Gripper — Visuomotor imitation learning at 100 Hz</title>
+  <link rel="canonical" href="https://waterloo-visuomotor.github.io/">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Hello Gripper home">
+      <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
+        <path d="M11 6v9m14-9v9M8 15h7v12H8m20-12h-7v12h7M15 19h6"/>
+        <rect x="15" y="15" width="6" height="12" rx="1"/>
+      </svg>
+      <span>Hello Gripper</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span><span></span><span></span>
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-nav>
+      <a href="#system">System</a>
+      <a href="#data">Data</a>
+      <a href="#policy">Policy</a>
+      <a href="#results">Results</a>
+      <a href="#media">Media</a>
+      <a href="#team">Team</a>
+      <a class="nav-github" href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top">
+      <div class="hero-grid page-shell">
+        <div class="hero-copy" data-reveal>
+          <div class="eyebrow"><span class="status-dot"></span> Open research platform · Simulation-first</div>
+          <h1>From demonstrations to <em>100 Hz</em> robot control.</h1>
+          <p class="hero-deck">An end-to-end imitation-learning system for collecting varied manipulation data, training horizon-predicting visuomotor policies, and deploying them through a non-blocking asynchronous controller.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#system">Explore the system <span aria-hidden="true">↓</span></a>
+            <a class="button button-ghost" href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a>
+          </div>
+          <ul class="tech-list" aria-label="Core technologies">
+            <li>MuJoCo</li>
+            <li>DINOv3</li>
+            <li>Behavior cloning</li>
+            <li>Action horizons</li>
+          </ul>
+        </div>
+
+        <figure class="hero-media" data-reveal>
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/posters/model-rollout.jpg" aria-describedby="hero-video-caption">
+            <source src="assets/media/model-rollout.mp4" type="video/mp4">
+          </video>
+          <div class="result-stamp" role="img" aria-label="99 percent benchmark success">
+            <strong>99%</strong>
+            <span>benchmark<br>success</span>
+          </div>
+          <figcaption id="hero-video-caption">
+            <span class="live-label"><span></span> Model control</span>
+            <span>A trained policy completes a closed-loop rollout with a randomized box.</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="hero-ticker" aria-hidden="true">
+        <div>COLLECT <span>→</span> RECORD <span>→</span> TRAIN <span>→</span> PLAN <span>→</span> EXECUTE <span>→</span> MEASURE <span>→</span> COLLECT <span>→</span> RECORD <span>→</span> TRAIN <span>→</span> PLAN <span>→</span> EXECUTE <span>→</span> MEASURE <span>→</span></div>
+      </div>
+    </section>
+
+    <section class="intro-section section-light">
+      <div class="page-shell intro-grid">
+        <p class="section-index">00 / Research question</p>
+        <div data-reveal>
+          <h2>Can a compact policy stay reliable when perception, planning, and control run at different speeds?</h2>
+          <p class="large-copy">Hello Gripper is our working answer: a reproducible place-cube task, a high-throughput demonstration engine, a multimodal action-chunking policy, and a three-clock runtime that keeps physics responsive while the network thinks.</p>
+        </div>
+        <dl class="intro-stats" data-reveal>
+          <div><dt>100 Hz</dt><dd>recording and control</dd></div>
+          <div><dt>10 Hz</dt><dd>observation cadence</dd></div>
+          <div><dt>5 Hz</dt><dd>default replanning</dd></div>
+          <div><dt>30 s</dt><dd>task time limit</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="system-section" id="system">
+      <div class="page-shell">
+        <div class="section-heading" data-reveal>
+          <p class="section-index">01 / The system</p>
+          <h2>One continuous research loop.</h2>
+          <p>Every subsystem shares explicit timing, action, task, and episode contracts. A demonstration collected today can be replayed, inspected, trained on, and benchmarked without a separate conversion pipeline.</p>
+        </div>
+
+        <ol class="pipeline" aria-label="End-to-end research pipeline">
+          <li data-reveal>
+            <span class="pipeline-number">01</span>
+            <div class="pipeline-icon" aria-hidden="true">⌁</div>
+            <h3>Collect</h3>
+            <p>Human teleop, a ground-truth scripted expert, or successful model rollouts.</p>
+            <small>teleop · automation · inference</small>
+          </li>
+          <li data-reveal>
+            <span class="pipeline-number">02</span>
+            <div class="pipeline-icon" aria-hidden="true">▤</div>
+            <h3>Record</h3>
+            <p>Synchronized frames, actions, poses, provenance, and task metadata at 100 Hz.</p>
+            <small>HDF5 + review MP4</small>
+          </li>
+          <li data-reveal>
+            <span class="pipeline-number">03</span>
+            <div class="pipeline-icon" aria-hidden="true">◫</div>
+            <h3>Train</h3>
+            <p>Behavior cloning over episode windows with frozen visual features and EMA weights.</p>
+            <small>local · SLURM · Modal</small>
+          </li>
+          <li data-reveal>
+            <span class="pipeline-number">04</span>
+            <div class="pipeline-icon" aria-hidden="true">⟳</div>
+            <h3>Deploy</h3>
+            <p>Predict future action chunks off-thread and execute the newest timed trajectory.</p>
+            <small>observe · replan · execute</small>
+          </li>
+          <li data-reveal>
+            <span class="pipeline-number">05</span>
+            <div class="pipeline-icon" aria-hidden="true">↗</div>
+            <h3>Evaluate</h3>
+            <p>Replay identical seeded tasks across checkpoint ranges and preserve every result.</p>
+            <small>CSV · HTML · W&amp;B</small>
+          </li>
+        </ol>
+
+        <div class="task-panel" data-reveal>
+          <div class="task-visual" aria-hidden="true">
+            <div class="mini-scene">
+              <span class="mini-gripper"><i></i><b></b></span>
+              <span class="mini-cube"></span>
+              <span class="mini-box"></span>
+            </div>
+          </div>
+          <div class="task-copy">
+            <p class="overline">Reference task · place_cube_random_box_v1</p>
+            <h3>Pick a randomly placed cube. Place it in a randomly placed box. Lift clear.</h3>
+            <p>The task is intentionally small but complete: randomized geometry and visuals, contact-rich grasping, explicit success and failure rules, and enough variation to expose brittle policies.</p>
+          </div>
+          <ul class="task-rules">
+            <li><span>Success</span> cube in box + gripper clear</li>
+            <li><span>Failure</span> timeout or unreachable cube</li>
+            <li><span>Variation</span> spawn, box, cube, camera, light</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="async-section">
+      <div class="page-shell async-grid">
+        <div class="async-copy" data-reveal>
+          <p class="section-index">02 / Async inference</p>
+          <h2>Fast control.<br>Slow thinking.<br>No blocking.</h2>
+          <p>The simulator never waits for a forward pass. Three independent clocks preserve the observation spacing used in training, decide when a fresh plan is needed, and replay the latest plan at control rate.</p>
+          <div class="async-note">
+            <span aria-hidden="true">i</span>
+            <p>Single-slot queues evict stale work. New trajectories are time-stamped, so a late result can replace the old plan without jumping coordinate frames.</p>
+          </div>
+          <a class="text-link" href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper/blob/main/docs/inference_loop.md" target="_blank" rel="noreferrer">Read the inference-loop walkthrough <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="clock-console" data-reveal>
+          <div class="console-top"><span></span><span></span><span></span><b>runtime / three-clock controller</b></div>
+          <div class="clock-row observe-row">
+            <div class="clock-meta"><strong>OBSERVE</strong><span>10 Hz · every 100 ms</span></div>
+            <div class="pulse-track pulse-10" aria-hidden="true"></div>
+            <p>Capture image, pose, and the preceding 100 Hz action history.</p>
+          </div>
+          <div class="clock-row replan-row">
+            <div class="clock-meta"><strong>REPLAN</strong><span>5 Hz · background</span></div>
+            <div class="pulse-track pulse-5" aria-hidden="true"></div>
+            <p>Submit the newest window; keep only the newest pending request and result.</p>
+          </div>
+          <div class="clock-row execute-row">
+            <div class="clock-meta"><strong>EXECUTE</strong><span>100 Hz · every 10 ms</span></div>
+            <div class="pulse-track pulse-100" aria-hidden="true"></div>
+            <p>Interpolate the active trajectory and apply guarded mocap + gripper commands.</p>
+          </div>
+          <div class="thread-diagram">
+            <div><span>main thread</span><b>physics + observation + execution</b></div>
+            <i aria-hidden="true">latest only →</i>
+            <div><span>worker thread</span><b>tensor build + policy forward + plan</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="data-section section-light" id="data">
+      <div class="page-shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="section-index">03 / Data engine</p>
+            <h2>Data with a memory.</h2>
+          </div>
+          <p>Episodes carry the context required to reproduce and diagnose them—not only pixels and actions, but task rules, randomization, control source, timing, and physical state.</p>
+        </div>
+
+        <div class="data-layout">
+          <figure class="media-card media-card-wide" data-reveal>
+            <video controls playsinline preload="metadata" poster="assets/posters/human-teleop-sim.jpg">
+              <source src="assets/media/human-teleop-sim.mp4" type="video/mp4">
+            </video>
+            <figcaption><strong>Human teleoperation</strong><span>Mouse + keyboard demonstrations in the live simulation.</span></figcaption>
+          </figure>
+
+          <div class="source-cards">
+            <article data-reveal>
+              <span class="source-tag source-human">H</span>
+              <h3>Teleop</h3>
+              <p>Direct human control for natural demonstrations and targeted corrections.</p>
+            </article>
+            <article data-reveal>
+              <span class="source-tag source-expert">E</span>
+              <h3>Scripted expert</h3>
+              <p>A ground-truth state machine generates reliable, randomized successes at scale.</p>
+            </article>
+            <article data-reveal>
+              <span class="source-tag source-model">M</span>
+              <h3>Model + override</h3>
+              <p>Successful inference and hybrid model/teleop rollouts retain per-timestamp provenance.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="schema-panel" data-reveal>
+          <div class="schema-copy">
+            <p class="overline">One episode · synchronized at 100 Hz</p>
+            <h3>A shared contract from collection to visualization.</h3>
+            <p>Successes and optional failures are grouped by task, collection source, and result. Background workers write complete HDF5 artifacts atomically and generate compact review videos.</p>
+          </div>
+          <div class="schema-tree" role="img" aria-label="Simplified HDF5 episode schema">
+            <span>episode_*.h5</span>
+            <span class="indent">├── time</span>
+            <span class="indent">├── frames/overview</span>
+            <span class="indent">├── actions/{command, residual}</span>
+            <span class="indent">├── poses/{mocap, palm, cube, fingers}</span>
+            <span class="indent">├── control/control_source</span>
+            <span class="indent">└── metadata/{task, result, seed, overrides}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="policy-section" id="policy">
+      <div class="page-shell">
+        <div class="section-heading" data-reveal>
+          <p class="section-index">04 / Policy</p>
+          <h2>See. Remember. Predict a horizon.</h2>
+          <p>The current policy is a multimodal tokenizer around a frozen DINOv3 visual encoder. It fuses image patches, recent actions, and simulator pose state before predicting future Cartesian displacement and grip commands.</p>
+        </div>
+
+        <div class="architecture" data-reveal>
+          <div class="arch-stage inputs-stage">
+            <p class="arch-label">Inputs / observation window</p>
+            <div class="input-stack">
+              <div><span class="input-icon camera-icon"></span><strong>Camera</strong><small>160 × 120 RGB</small></div>
+              <div><span class="input-icon history-icon"></span><strong>Action history</strong><small>10 × [dx, dy, dz, grip]</small></div>
+              <div><span class="input-icon pose-icon"></span><strong>Pose state</strong><small>mocap · palm · cube · fingers</small></div>
+            </div>
+          </div>
+          <span class="arch-arrow" aria-hidden="true">→</span>
+          <div class="arch-stage encoder-stage">
+            <p class="arch-label">Tokenize</p>
+            <div class="arch-block dino-block"><small>Frozen</small><strong>DINOv3<br>ViT-S+/16</strong><span>patch features → 24 tokens</span></div>
+            <div class="arch-mini-row"><span>action token</span><span>pose token</span></div>
+          </div>
+          <span class="arch-arrow" aria-hidden="true">→</span>
+          <div class="arch-stage reason-stage">
+            <p class="arch-label">Fuse in space + time</p>
+            <div class="token-field" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <strong>Token transformer</strong>
+            <span class="down-arrow">↓ learned-query pool</span>
+            <strong>Temporal transformer</strong>
+          </div>
+          <span class="arch-arrow" aria-hidden="true">→</span>
+          <div class="arch-stage output-stage">
+            <p class="arch-label">Output</p>
+            <div class="horizon-plot" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <strong>Future action horizon</strong>
+            <small>[dx, dy, dz, grip] × N</small>
+          </div>
+        </div>
+
+        <div class="policy-notes">
+          <article data-reveal><span>01</span><h3>Now-anchored actions</h3><p>Targets are expressed relative to the current observation, keeping training and live execution in the same coordinate contract.</p></article>
+          <article data-reveal><span>02</span><h3>Frozen visual backbone</h3><p>Precomputed float16 DINO tokens remove repeated encoder work and deliver roughly 9× training throughput.</p></article>
+          <article data-reveal><span>03</span><h3>Horizon supervision</h3><p>The head predicts a sequence of future controls, giving the runtime a smooth plan to replay between slower replans.</p></article>
+        </div>
+
+        <div class="experiments" data-reveal>
+          <div class="experiments-intro">
+            <p class="overline">Architecture search</p>
+            <h3>What we tried along the way.</h3>
+            <p>Experimental branches preserve alternatives to the current transformer tokenizer. They map the path from privileged-state baselines toward stronger visual and generative action models.</p>
+          </div>
+          <div class="experiment-list">
+            <article><span>Baseline</span><h4>State MLP</h4><p>Lightweight privileged-state policy and sweep.</p></article>
+            <article><span>Visual</span><h4>CNN + MLP</h4><p>Spatial-softmax CNN with auxiliary localization.</p></article>
+            <article><span>Visual</span><h4>DINO ConvNeXt</h4><p>Frozen DINOv3 ConvNeXt features in the CNN path.</p></article>
+            <article><span>Sequence</span><h4>CNN Transformer</h4><p>Transformer action decoder over visual context.</p></article>
+            <article><span>Generative</span><h4>Diffusion head</h4><p>Conditional denoising for action sequence generation.</p></article>
+            <article><span>Generative</span><h4>Flow matching</h4><p>Continuous flow-based future action prediction.</p></article>
+            <article><span>Ablation</span><h4>Camera only + aux</h4><p>Remove cube position; supervise localization explicitly.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section section-light" id="results">
+      <div class="page-shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="section-index">05 / Training + evaluation</p>
+            <h2>Every checkpoint earns its result.</h2>
+          </div>
+          <p>Checkpoint ranges are evaluated headlessly on identical seeded episode sets. Reports update after every rollout, making long local and sharded cluster benchmarks inspectable and interruption-safe.</p>
+        </div>
+
+        <div class="result-layout">
+          <figure class="benchmark-figure" data-reveal>
+            <img src="assets/media/benchmark-results.jpg" alt="Six benchmark charts showing success rate climbing to 99 percent and average episode duration falling to about three seconds across checkpoints">
+            <figcaption><strong>Checkpoint benchmark</strong><span>Success approaches 99% while average completion time falls to approximately 3 seconds.</span></figcaption>
+          </figure>
+          <div class="result-sidebar">
+            <div class="big-result" data-reveal><strong>99<sup>%</sup></strong><span>best checkpoint<br>success rate</span></div>
+            <article data-reveal><span class="result-number">01</span><h3>Controlled comparison</h3><p>Every checkpoint receives the same task seeds and episode order.</p></article>
+            <article data-reveal><span class="result-number">02</span><h3>Failure-aware</h3><p>Success, duration, timeout, and early terminal failures remain separately visible.</p></article>
+            <article data-reveal><span class="result-number">03</span><h3>Portable reports</h3><p>Aggregate and per-episode CSV + HTML stay local; summary curves can sync to W&amp;B.</p></article>
+          </div>
+        </div>
+
+        <div class="training-strip" data-reveal>
+          <div><strong>~9×</strong><span>feature-cache throughput</span></div>
+          <div><strong>EMA</strong><span>deployment weights by default</span></div>
+          <div><strong>Atomic</strong><span>rolling resume checkpoints</span></div>
+          <div><strong>3 targets</strong><span>local · SLURM · Modal</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section" id="media">
+      <div class="page-shell">
+        <div class="section-heading" data-reveal>
+          <p class="section-index">06 / Through the tools</p>
+          <h2>Inspect behavior, not just a score.</h2>
+          <p>Trajectory previews expose what the policy intends to do. Rerun aligns spatial paths, video, commands, and residuals. Hardware teleoperation begins the bridge beyond simulation.</p>
+        </div>
+
+        <div class="media-grid">
+          <figure class="media-card media-feature" data-reveal>
+            <video controls playsinline preload="metadata" poster="assets/posters/action-horizon-preview.jpg">
+              <source src="assets/media/action-horizon-preview.mp4" type="video/mp4">
+            </video>
+            <figcaption><strong>Action-horizon preview</strong><span>Colored dots expose successive predictions and the active timed trajectory.</span></figcaption>
+          </figure>
+          <figure class="media-card" data-reveal>
+            <video controls playsinline preload="metadata" poster="assets/posters/episode-rerun.jpg">
+              <source src="assets/media/episode-rerun.mp4" type="video/mp4">
+            </video>
+            <figcaption><strong>Episode in Rerun</strong><span>3D trajectories, video, commands, and residuals on one synchronized timeline.</span></figcaption>
+          </figure>
+          <figure class="media-card portrait-card" data-reveal>
+            <video controls playsinline preload="metadata" poster="assets/posters/so101-hardware-teleop.jpg">
+              <source src="assets/media/so101-hardware-teleop.mp4" type="video/mp4">
+            </video>
+            <figcaption><strong>SO-101 teleoperation</strong><span>Early hardware control work toward a simulation-to-real deployment path.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <div class="page-shell code-grid">
+        <div data-reveal>
+          <p class="section-index">07 / Reproduce it</p>
+          <h2>Start with one command.</h2>
+          <p>The repository includes environment setup, task automation, training, visualization, deterministic benchmarks, and current-state architecture notes.</p>
+          <div class="doc-links">
+            <a href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper/blob/main/docs/README.md" target="_blank" rel="noreferrer">Documentation <span>↗</span></a>
+            <a href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper/tree/main/docs/architecture" target="_blank" rel="noreferrer">Architecture notes <span>↗</span></a>
+            <a href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper/blob/main/docs/data_collection.md" target="_blank" rel="noreferrer">Data collection <span>↗</span></a>
+            <a href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper/blob/main/docs/checkpoint_benchmarking.md" target="_blank" rel="noreferrer">Benchmarking <span>↗</span></a>
+          </div>
+        </div>
+        <div class="terminal" data-reveal>
+          <div class="terminal-top"><span></span><span></span><span></span><b>quick-start.sh</b></div>
+          <pre><code><span class="comment"># Install simulation + model dependencies</span>
+<span class="prompt">$</span> bash scripts/setup_dev.sh --model
+
+<span class="comment"># Collect randomized expert demonstrations</span>
+<span class="prompt">$</span> .venv/bin/python scripts/expert_recorder.py \
+    --num-episodes 100 --random-visuals \
+    --random-camera --random-cube-size
+
+<span class="comment"># Train with cached frozen visual features</span>
+<span class="prompt">$</span> .venv/bin/python train.py \
+    --task place_cube_random_box_v1 \
+    --image-encoder dino --feature-cache
+
+<span class="comment"># Deploy a checkpoint in the live simulator</span>
+<span class="prompt">$</span> .venv/bin/python interactive_gripper.py \
+    --control model --checkpoint checkpoints/run/last.pt</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section section-light" id="team">
+      <div class="page-shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="section-index">08 / Team</p>
+            <h2>Built by two researchers,<br>one shared question.</h2>
+          </div>
+          <p>We are exploring reliable imitation learning systems from simulation infrastructure and data quality through model design, asynchronous deployment, and robot hardware.</p>
+        </div>
+
+        <div class="team-grid">
+          <article class="person-card" data-reveal>
+            <div class="person-avatar avatar-bora" aria-hidden="true"><span>B</span><i></i></div>
+            <div>
+              <p class="overline">Researcher · Developer</p>
+              <h3>Bora Atakan</h3>
+              <div class="social-links">
+                <a href="https://x.com/aboraatakan" target="_blank" rel="noreferrer" aria-label="Bora Atakan on X">X <span>@aboraatakan</span> ↗</a>
+                <a href="https://www.linkedin.com/in/anil-bora-atakan/" target="_blank" rel="noreferrer" aria-label="Bora Atakan on LinkedIn">LinkedIn ↗</a>
+              </div>
+            </div>
+          </article>
+          <article class="person-card" data-reveal>
+            <div class="person-avatar avatar-batu" aria-hidden="true"><span>B</span><i></i></div>
+            <div>
+              <p class="overline">Researcher · Developer</p>
+              <h3>Batu Atakan</h3>
+              <div class="social-links">
+                <a href="https://x.com/EmreBatuAtakan" target="_blank" rel="noreferrer" aria-label="Batu Atakan on X">X <span>@EmreBatuAtakan</span> ↗</a>
+                <a href="https://www.linkedin.com/in/ebatu-atakan/" target="_blank" rel="noreferrer" aria-label="Batu Atakan on LinkedIn">LinkedIn ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section">
+      <div class="page-shell closing-inner" data-reveal>
+        <p class="overline">MuJoCo Hello Gripper · 2026</p>
+        <h2>Collect carefully.<br>Plan asynchronously.<br>Measure everything.</h2>
+        <a class="button button-primary" href="https://github.com/EmreBatuAtakan/mujoco_hello_gripper" target="_blank" rel="noreferrer">Explore the repository <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page-shell footer-inner">
+      <p>© 2026 Bora Atakan &amp; Batu Atakan</p>
+      <p>MuJoCo · imitation learning · robot control</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

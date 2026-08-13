@@ -134,39 +134,6 @@ video {
   font-size: 14px;
 }
 
-.publication-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.pill-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 8px 16px;
-  color: #fff;
-  background: #333;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.pill-link:hover,
-.pill-link:focus-visible {
-  color: #fff;
-  background: #111;
-  text-decoration: none;
-}
-
-.pill-link svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
 .hero-media {
   margin-bottom: 34px;
 }
@@ -591,42 +558,6 @@ figure {
   object-position: center 38%;
 }
 
-.software-grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 52px;
-  align-items: start;
-}
-
-.software-grid .prose {
-  font-size: 15px;
-  text-align: left;
-}
-
-.text-link {
-  font-weight: 600;
-}
-
-pre {
-  padding: 22px;
-  margin: 0;
-  overflow-x: auto;
-  color: #e8e8e8;
-  background: #272822;
-  border-radius: 5px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11px;
-  line-height: 1.75;
-}
-
-code {
-  font-family: inherit;
-}
-
-code span {
-  color: #9fa1a0;
-}
-
 .team-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -690,7 +621,8 @@ footer {
 
 footer .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   gap: 20px;
 }
 
@@ -767,7 +699,6 @@ footer p {
   .two-column-media,
   .async-block,
   .media-grid,
-  .software-grid,
   .team-list {
     grid-template-columns: 1fr;
   }

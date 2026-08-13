@@ -1,27 +1,14 @@
-# Research website
+# Waterloo Visuomotor Research
 
-This repository contains the static GitHub Pages site for MuJoCo Hello Gripper.
+Research on end-to-end visuomotor imitation learning for robot manipulation, spanning demonstration collection, multimodal policy learning, asynchronous action-horizon control, and deterministic closed-loop evaluation.
 
-## Preview locally
+Visit the project page at [waterloo-visuomotor.github.io](https://waterloo-visuomotor.github.io/).
 
-From the repository root:
+## Research scope
 
-```bash
-python3 -m http.server 8000
-```
-
-Then open `http://localhost:8000`.
-
-## Deploy
-
-The workflow at `.github/workflows/pages.yml` publishes the repository on every push to `main`. GitHub Pages uses **GitHub Actions** as its deployment source.
-
-The expected project URL is:
-
-```text
-https://waterloo-visuomotor.github.io/
-```
-
-## Media
-
-Web-sized copies live under `assets/media/`, with poster frames in `assets/posters/`. The source media is not modified. Videos are encoded to a browser-friendly 960×540 preset to keep the published site responsive.
+- Varied human, scripted-expert, and policy-generated demonstrations
+- Synchronized visual, action-history, pose, and control-provenance data
+- Frozen visual representations with multimodal temporal policy models
+- Non-blocking observation, replanning, and 100 Hz execution clocks
+- Seeded checkpoint evaluation and synchronized trajectory diagnostics
+- Early hardware teleoperation toward simulation-to-real transfer

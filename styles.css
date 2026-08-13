@@ -277,16 +277,26 @@ figcaption {
 
 .two-column-media {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: 1.25fr 0.75fr;
   gap: 42px;
   align-items: start;
+}
+
+.data-control-section {
+  max-width: 1000px;
 }
 
 figure {
   margin: 0;
 }
 
-.two-column-media video,
+.two-column-media video {
+  width: 100%;
+  height: auto;
+  background: #000;
+  border-radius: 4px;
+}
+
 .media-grid video {
   width: 100%;
   aspect-ratio: 16 / 10;

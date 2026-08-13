@@ -299,8 +299,7 @@ figure {
 
 .media-grid video {
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
   background: #000;
   border-radius: 4px;
 }
@@ -550,16 +549,13 @@ figure {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 34px 24px;
+  align-items: start;
 }
 
 .media-grid .hardware-figure {
   grid-column: 1 / -1;
-  width: calc(50% - 12px);
+  width: min(100%, 360px);
   margin-inline: auto;
-}
-
-.media-grid .hardware-figure video {
-  object-position: center 38%;
 }
 
 footer {
